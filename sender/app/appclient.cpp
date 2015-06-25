@@ -14,6 +14,9 @@
 
 using namespace std;
 
+char filename[] = "result_data.txt";
+ofstream fout(filename);
+
 #ifndef WIN32
 void* monitor(void*);
 #else
@@ -27,7 +30,7 @@ int main(int argc, char* argv[])
       cout << "usage: appclient server_ip server_port" << endl;
       return 0;
    }
-//sleep(1500);
+   //sleep(1500);
    // use this function to initialize the UDT library
    UDT::startup();
 
@@ -86,9 +89,9 @@ int main(int argc, char* argv[])
    freeaddrinfo(peer);
 
    // using CC method
-   BBCC* cchandle = NULL;
-   int temp;
-   UDT::getsockopt(client, 0, UDT_CC, &cchandle, &temp);
+   //BBCC* cchandle = NULL;
+   //int temp;
+   //UDT::getsockopt(client, 0, UDT_CC, &cchandle, &temp);
 //   if (NULL != cchandle)
 //      cchandle->setRate(1);
 
@@ -121,7 +124,7 @@ int main(int argc, char* argv[])
    }
 
    UDT::close(client);
-
+   fout.close();
    delete [] data;
 
    // use this function to release the UDT library
@@ -165,7 +168,10 @@ DWORD WINAPI monitor(LPVOID s)
            << perf.pktSndLossTotal << "\t\t\t"
            << perf.pktRecvACKTotal << "\t"
            << perf.pktRecvNAKTotal << endl;
-
+      
+      fout << perf.mbpsSendRate << "\t\t" << perf.msRTT << "\t" << perf.pktCongestionWindow << "\t"
+             << perf.usPktSndPeriod << "\t\t\t" << perf.pktRecvACK << "\t" << perf.pktRecvNAK << endl;
+      fout << flush;
    }
 
    #ifndef WIN32
