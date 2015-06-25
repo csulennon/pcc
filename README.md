@@ -14,7 +14,6 @@ For sender:
 
 3. make
 
-4. export LD_LIBRARY_PATH=/path/to/install/sender/src
 
 For receiver:
 
@@ -24,7 +23,6 @@ For receiver:
 
 3. make
 
-4. export LD_LIBRARY_PATH=/path/to/install/receiver/src
 
 
 ### Replicate Demo with Emulab
@@ -35,13 +33,15 @@ Comming soon
 
   1.1 On receiver, go to recever/app run ./appserver 
 
-  1.2 On sender goto sender/app run ./appclient receiver's address 9000 2>monitor_log
+  1.2 On sender goto sender/app run ./appclient receiver's address 9000
 
 2. File transfer software:
 
   1.1 On receiver, run ./recvfile
  
-  1.2 on Sender, run ./sendfile dst_address 9000 file_to_send 2>monitor_log
+  1.2 on Sender, run ./sendfile dst_address 9000 file_to_send
+
+3. On the send side, out data will write into file "result_data.txt"
 
 ## Known Issues
 1. We recommend do test on FEDORA 15.0 STD system and a server with at least two cores, on which the performance is best. We have tested it on Unbuntu 12.04LTS and 14.04LTS, it normally works fine but there is an issue of UDP’s sendto() system call (sometimes sendto just slows down awfully) that may break the packet pacing PCC relies on. 
