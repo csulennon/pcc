@@ -30,10 +30,12 @@ public:
 
 		setACKInterval(1);
 		setRTO(2000000);
+        cout << "use CTCP" << endl;
 	}
 
 	virtual void onACK(const int& ack)
 	{
+        cout << "CTCP onACK" << endl;
 		if (ack == m_iLastACK)
 		{
 			if (3 == ++ m_iDupACKCount)
@@ -168,20 +170,21 @@ public:
 		recorded_number = 0;
 		baseline = 0;
 		utility_baseline = 0;
-                for(int i=0;i<100;i++)
-                  start_rate_array[i] = 0;
-                start_previous_monitor = -1;
-                start_previous_utility = -10000;
-                previous_rtt = 0;
+        for(int i=0;i<100;i++)
+            start_rate_array[i] = 0;
+        start_previous_monitor = -1;
+        start_previous_utility = -10000;
+        previous_rtt = 0;
 
-
+        cout << "use PCC" << endl;
 	}
 
 public:
 
-		virtual void onLoss(const int32_t*, const int&) {
+	virtual void onLoss(const int32_t*, const int&) {
 
 	}
+
 	virtual void onTimeout(){
 
 	}
@@ -293,7 +296,7 @@ cerr<<"clear continous send"<<endl;
 		if(l<0)
 			l=0;
 //utility = ((t-l)/time-20*l/time);
-cerr<<rtt<<endl;
+cerr<<"rtt:"<<rtt<<endl;
 if(rtt==0) {
 cerr<<"RTT cannot be 0!!!"<<endl;
 }
@@ -525,7 +528,7 @@ cerr<<"first time moving"<<endl;
 		}
 	}
 
-		virtual void onACK(const int& ack)
+	virtual void onACK(const int& ack)
 	{}
 
 	void setRate(double mbps)
