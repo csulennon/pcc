@@ -1,0 +1,12 @@
+*.[oa]
+*.so
+appclient
+appserver
+incastserver
+recvfile
+sendfile
+test
+incast_client
+recvfile
+sendfile
+udt
