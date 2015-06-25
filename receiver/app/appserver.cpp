@@ -121,7 +121,7 @@ DWORD WINAPI recvdata(LPVOID usocket)
    char* data;
    int size = 100000000;
    data = new char[size];
-
+   
    while (true)
    {
       int rsize = 0;
@@ -164,8 +164,8 @@ DWORD WINAPI monitor(LPVOID s)
 
    UDT::TRACEINFO perf;
 
-   cout << "SendRate(Mb/s)\tRTT(ms)\tCWnd\tPktSndPeriod(us)\tRecvACK\tRecvNAK" << endl;
-
+   //cout << "SendRate(Mb/s)\tRTT(ms)\tCWnd\tPktSndPeriod(us)\tRecvACK\tRecvNAK" << endl;
+   cout << "mbpsRecvRate\tpktRecvTotal\tpktRecvNAKTotal\t" << endl;
    while (true)
    {
       #ifndef WIN32
@@ -180,8 +180,15 @@ DWORD WINAPI monitor(LPVOID s)
          break;
       }
 
-      //cout << perf.pktRecvTotal << "\t\t"
+      //cout << perf.mbpsSendRate << "\t\t"
+      //     << perf.msRTT << "\t"
+      //     <<  perf.pktSentTotal << "\t"
+      //     << perf.pktSndLossTotal << "\t\t\t"
+      //     << perf.pktRecvACKTotal << "\t"
       //     << perf.pktRecvNAKTotal << endl;
+      cout << perf.mbpsRecvRate << "\t\t"
+           << perf.pktRecvTotal << "\t\t"
+           << perf.pktRecvNAKTotal << endl;
    }
 
    #ifndef WIN32
