@@ -34,6 +34,7 @@ OBJS = md5.o common.o window.o list.o buffer.o packet.o channel.o queue.o ccc.o 
 DIR = $(shell pwd)
 
 all: libudt.so libudt.a udt
+	cp libudt.so /usr/lib/
 
 %.o: %.cpp %.h udt.h
 	$(C++) $(CCFLAGS) $< -c
